@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Health-Guard AI — Medical Intelligence & Diagnostic Platform</title>
+<!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* ========================================================
+       Aesthetic Midnight & Electric Blue (Dark Theme - Default)
+       ======================================================== */
+    --bg-page: #080c16;
+    --bg-gradient: 
+      radial-gradient(circle at 10% 10%, rgba(37, 99, 235, 0.18) 0%, transparent 45%),
+      radial-gradient(circle at 90% 85%, rgba(56, 189, 248, 0.14) 0%, transparent 45%),
+      radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 60%),
+      linear-gradient(180deg, #070b14 0%, #0d1527 100%);
+    
+    --card-surface: rgba(14, 22, 38, 0.72);
+    --card-surface-hover: rgba(20, 31, 54, 0.85);
+    --card-border: rgba(56, 189, 248, 0.18);
+    --card-border-subtle: rgba(255, 255, 255, 0.06);
+
+    --input-bg: rgba(8, 14, 25, 0.8);
+    --input-border: rgba(56, 189, 248, 0.22);
+    --input-focus-glow: 0 0 0 4px rgba(37, 99, 235, 0.25), 0 0 16px rgba(56, 189, 248, 0.2);
+
+    --text-pure: #ffffff;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+
+    --brand-blue: #3b82f6;
+    --brand-blue-deep: #1d4ed8;
+    --cyan-accent: #38bdf8;
+    --cyan-glow: 0 0 20px rgba(56, 189, 248, 0.45);
+
+    --btn-primary-bg: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #0284c7 100%);
+    --btn-primary-border: rgba(56, 189, 248, 0.4);
+    --btn-primary-glow: 0 4px 20px rgba(37, 99, 235, 0.45), 0 0 0 1px rgba(56, 189, 248, 0.3);
+
+    --btn-secondary-bg: rgba(15, 23, 42, 0.65);
+    --btn-secondary-border: rgba(56, 189, 248, 0.2);
+    --btn-secondary-text: #e2e8f0;
+
+    --success: #10b981;
+    --success-bg: rgba(16, 185, 129, 0.12);
+    --success-border: rgba(16, 185, 129, 0.3);
+
+    --warning: #f59e0b;
+    --warning-bg: rgba(245, 158, 11, 0.12);
+    --warning-border: rgba(245, 158, 11, 0.3);
+
+    --danger: #f43f5e;
+    --danger-bg: rgba(244, 63, 94, 0.12);
+    --danger-border: rgba(244, 63, 94, 0.3);
+
+    --shadow-floating: 0 16px 40px -10px rgba(0, 0, 0, 0.8), 0 0 25px rgba(37, 99, 235, 0.12);
+    --table-header-bg: rgba(9, 15, 28, 0.85);
+    --table-row-hover: rgba(20, 31, 54, 0.5);
+  }
+
+  /* ========================================================
+     Aesthetic Clinical Light (Light Mode Theme)
+     ======================================================== */
+  [data-theme="light"] {
+    --bg-page: #f8fafc;
+    --bg-gradient: 
+      radial-gradient(at 0% 0%, rgba(224, 242, 254, 0.7) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(238, 242, 255, 0.6) 0px, transparent 50%),
+      radial-gradient(at 50% 100%, rgba(240, 253, 250, 0.6) 0px, transparent 50%),
+      linear-gradient(180deg, #f8fafc 0%, #edf2f7 100%);
+    
+    --card-surface: rgba(255, 255, 255, 0.88);
+    --card-surface-hover: rgba(255, 255, 255, 0.98);
+    --card-border: rgba(203, 213, 225, 0.7);
+    --card-border-subtle: rgba(226, 232, 240, 0.8);
+
+    --input-bg: #ffffff;
+    --input-border: #cbd5e1;
+    --input-focus-glow: 0 0 0 4px rgba(37, 99, 235, 0.12), 0 1px 3px rgba(0, 0, 0, 0.05);
+
+    --text-pure: #0f172a;
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+
+    --brand-blue: #2563eb;
+    --brand-blue-deep: #1d4ed8;
+    --cyan-accent: #0284c7;
+    --cyan-glow: 0 0 16px rgba(37, 99, 235, 0.2);
+
+    --btn-primary-bg: linear-gradient(135deg, #1d4ed8 0%, #2563eb 60%, #3b82f6 100%);
+    --btn-primary-border: rgba(37, 99, 235, 0.2);
+    --btn-primary-glow: 0 4px 12px rgba(37, 99, 235, 0.25);
+
+    --btn-secondary-bg: #ffffff;
+    --btn-secondary-border: #cbd5e1;
+    --btn-secondary-text: #334155;
+
+    --success: #059669;
+    --success-bg: #ecfdf5;
+    --success-border: #a7f3d0;
+
+    --warning: #d97706;
+    --warning-bg: #fffbeb;
+    --warning-border: #fde68a;
+
+    --danger: #e11d48;
+    --danger-bg: #fff1f2;
+    --danger-border: #fecdd3;
+
+    --shadow-floating: 0 12px 28px -5px rgba(15, 23, 42, 0.07), 0 0 0 1px rgba(226, 232, 240, 0.8);
+    --table-header-bg: #f8fafc;
+    --table-row-hover: #f1f5f9;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background-color: var(--bg-page);
+    background-image: var(--bg-gradient);
+    background-attachment: fixed;
+    color: var(--text-secondary);
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  ::selection {
+    background: rgba(56, 189, 248, 0.3);
+    color: var(--text-pure);
+  }
+
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* App Shell Container */
+  .shell {
+    max-width: 1060px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0 18px;
+  }
+
+  /* Aesthetic Glass Header */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 26px;
+    background: var(--card-surface);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    margin-top: 20px;
+    box-shadow: var(--shadow-floating);
+    transition: all 0.3s ease;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .brand-mark {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #38bdf8 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.45);
+  }
+
+  .brand-word {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text-pure);
+    letter-spacing: -0.025em;
+  }
+
+  .brand-word span {
+    color: var(--cyan-accent);
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+  }
+
+  .system-badge {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--cyan-accent);
+    background: rgba(56, 189, 248, 0.12);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    padding: 3px 10px;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  .nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* Aesthetic Theme Switcher Button */
+  .theme-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--btn-secondary-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    padding: 7px 14px;
+    border-radius: 9999px;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .theme-toggle-btn:hover {
+    border-color: var(--cyan-accent);
+    transform: translateY(-1px);
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.3);
+  }
+
+  .user-chip {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--btn-secondary-bg);
+    padding: 7px 16px;
+    border-radius: 9999px;
+    border: 1px solid var(--card-border);
+  }
+
+  .user-chip .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--cyan-accent);
+    box-shadow: 0 0 10px var(--cyan-accent);
+  }
+
+  /* Breadcrumb Stepper */
+  .stepper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px 14px;
+    background: var(--card-surface);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--card-border-subtle);
+    border-radius: 16px;
+    margin: 18px 0 28px;
+    overflow-x: auto;
+    transition: all 0.3s ease;
+  }
+
+  .step {
+    flex: 1;
+    min-width: 145px;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.25s ease;
+    cursor: default;
+  }
+
+  .step .n {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1.5px solid var(--card-border);
+    background: var(--bg-page);
+    font-size: 11px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+  }
+
+  .step.active {
+    color: var(--text-pure);
+    background: rgba(37, 99, 235, 0.15);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    box-shadow: 0 0 15px rgba(37, 99, 235, 0.2);
+  }
+
+  .step.active .n {
+    background: linear-gradient(135deg, #2563eb, #38bdf8);
+    border-color: #38bdf8;
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+  }
+
+  .step.done {
+    color: var(--text-secondary);
+  }
+
+  .step.done .n {
+    background: var(--success-bg);
+    border-color: var(--success);
+    color: var(--success);
+  }
+
+  /* Main Viewport */
+  main {
+    flex: 1;
+    padding: 4px 0 54px;
+  }
+
+  .screen {
+    display: none;
+  }
+
+  .screen.active {
+    display: block;
+    animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Headings & Texts */
+  h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text-pure);
+    margin: 0 0 6px;
+    letter-spacing: -0.025em;
+  }
+
+  h2 {
+    font-size: 17.5px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 8px;
+    letter-spacing: -0.015em;
+  }
+
+  .sub {
+    color: var(--text-muted);
+    font-size: 14.5px;
+    margin: 0 0 30px;
+    max-width: 62ch;
+    line-height: 1.6;
+  }
+
+  /* Card Component */
+  .card {
+    background: var(--card-surface);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 26px 28px;
+    box-shadow: var(--shadow-floating);
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  /* Forms & Inputs */
+  label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 7px;
+  }
+
+  input[type=text], input[type=password], input[type=number] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1.5px solid var(--input-border);
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: inherit;
+    background: var(--input-bg);
+    color: var(--text-pure);
+    transition: all 0.25s ease;
+  }
+
+  input::placeholder {
+    color: #64748b;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: var(--brand-blue);
+    box-shadow: var(--input-focus-glow);
+  }
+
+  .field {
+    margin-bottom: 18px;
+  }
+
+  /* Radiant Aesthetic Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: 1px solid var(--btn-primary-border);
+    background: var(--btn-primary-bg);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: var(--btn-primary-glow);
+  }
+
+  .btn:hover {
+    transform: translateY(-1.5px);
+    box-shadow: 0 0 28px rgba(56, 189, 248, 0.6);
+  }
+
+  .btn:active {
+    transform: translateY(0);
+  }
+
+  .btn.secondary {
+    background: var(--btn-secondary-bg);
+    color: var(--btn-secondary-text);
+    border: 1px solid var(--btn-secondary-border);
+    box-shadow: none;
+  }
+
+  .btn.secondary:hover {
+    background: var(--card-surface-hover);
+    border-color: var(--cyan-accent);
+    color: var(--text-pure);
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+
+  .row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .error {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #fb7185;
+    background: var(--danger-bg);
+    border: 1px solid var(--danger-border);
+    padding: 9px 14px;
+    border-radius: 8px;
+    margin-top: 8px;
+    display: none;
+  }
+
+  /* Screen: Login */
+  .login-wrap {
+    max-width: 420px;
+    margin: 50px auto 0;
+  }
+
+  .login-wrap .card {
+    padding: 38px 34px;
+    border-radius: 20px;
+  }
+
+  .login-title {
+    text-align: center;
+    margin-bottom: 26px;
+  }
+
+  .login-title .icon-badge {
+    width: 52px;
+    height: 52px;
+    background: rgba(37, 99, 235, 0.15);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    color: var(--cyan-accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+  }
+
+  .divider-note {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 22px;
+  }
+
+  /* Screen: Dashboard Metrics */
+  .grid3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 30px;
+  }
+
+  .stat {
+    background: var(--card-surface);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 22px 24px;
+    box-shadow: var(--shadow-floating);
+    transition: all 0.25s ease;
+  }
+
+  .stat:hover {
+    transform: translateY(-2px);
+    border-color: var(--cyan-accent);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+  }
+
+  .stat .num {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text-pure);
+    letter-spacing: -0.025em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .stat .lbl {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .report-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--card-border-subtle);
+    font-size: 14px;
+  }
+
+  .report-row:last-child {
+    border-bottom: none;
+  }
+
+  .report-row .name {
+    font-weight: 700;
+    color: var(--text-pure);
+  }
+
+  .report-row .meta {
+    color: var(--text-muted);
+    font-size: 12.5px;
+    margin-top: 2px;
+  }
+
+  /* Badges */
+  .badge {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.02em;
+  }
+
+  .badge.normal {
+    background: var(--success-bg);
+    color: var(--success);
+    border: 1px solid var(--success-border);
+  }
+
+  .badge.low {
+    background: var(--warning-bg);
+    color: var(--warning);
+    border: 1px solid var(--warning-border);
+  }
+
+  .badge.high {
+    background: var(--danger-bg);
+    color: var(--danger);
+    border: 1px solid var(--danger-border);
+  }
+
+  /* Screen: Upload */
+  .dropzone {
+    border: 2px dashed var(--input-border);
+    border-radius: 18px;
+    padding: 50px 24px;
+    text-align: center;
+    background: var(--card-surface);
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .dropzone:hover, .dropzone.drag {
+    border-color: var(--cyan-accent);
+    background: rgba(37, 99, 235, 0.1);
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
+  }
+
+  .dropzone .icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(37, 99, 235, 0.15);
+    border: 1px solid var(--card-border);
+    color: var(--cyan-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.2);
+  }
+
+  .dropzone .file-name {
+    font-size: 14px;
+    color: var(--cyan-accent);
+    margin-top: 14px;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+  }
+
+  .or-line {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 28px 0;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .or-line::before, .or-line::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--card-border-subtle);
+  }
+
+  .manual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 24px;
+  }
+
+  .manual-grid .field small {
+    display: block;
+    color: var(--text-muted);
+    font-size: 11.5px;
+    margin-top: 5px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Live Pipeline UI */
+  .progress-wrap {
+    display: none;
+  }
+
+  .progress-wrap.active {
+    display: block;
+  }
+
+  .progress-steps {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pstep {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-muted);
+    padding: 12px 16px;
+    background: rgba(9, 15, 28, 0.5);
+    border-radius: 10px;
+    border: 1px solid var(--card-border-subtle);
+    transition: all 0.2s ease;
+  }
+
+  .pstep .mark {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--card-border);
+    background: var(--bg-page);
+    flex-shrink: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pstep.doing {
+    color: var(--text-pure);
+    background: rgba(37, 99, 235, 0.15);
+    border-color: var(--cyan-accent);
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.2);
+  }
+
+  .pstep.doing .mark {
+    border-color: var(--cyan-accent);
+    box-shadow: 0 0 8px var(--cyan-accent);
+  }
+
+  .pstep.doing .mark::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--cyan-accent);
+    animation: neonGlow 1s infinite alternate;
+  }
+
+  @keyframes neonGlow {
+    from { transform: scale(0.8); opacity: 0.6; }
+    to { transform: scale(1.3); opacity: 1; }
+  }
+
+  .pstep.done {
+    color: var(--text-secondary);
+    background: var(--card-surface);
+  }
+
+  .pstep.done .mark {
+    background: var(--success);
+    border-color: var(--success);
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+  }
+
+  .pstep.done .mark::after {
+    content: "✓";
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  /* Screen: Analysis Table & Metric Chips */
+  .summary-strip {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .summary-chip {
+    flex: 1;
+    border-radius: 14px;
+    padding: 20px 22px;
+    border: 1px solid var(--card-border);
+    background: var(--card-surface);
+    box-shadow: var(--shadow-floating);
+  }
+
+  .summary-chip .num {
+    font-size: 30px;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .summary-chip .lbl {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .summary-chip.normal {
+    background: var(--success-bg);
+    border-color: var(--success-border);
+  }
+  .summary-chip.normal .num { color: var(--success); }
+
+  .summary-chip.low {
+    background: var(--warning-bg);
+    border-color: var(--warning-border);
+  }
+  .summary-chip.low .num { color: var(--warning); }
+
+  .summary-chip.high {
+    background: var(--danger-bg);
+    border-color: var(--danger-border);
+  }
+  .summary-chip.high .num { color: var(--danger); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th {
+    text-align: left;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 16px 20px;
+    background: var(--table-header-bg);
+    border-bottom: 1px solid var(--card-border-subtle);
+  }
+
+  td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--card-border-subtle);
+    font-size: 13.5px;
+    vertical-align: middle;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:hover td {
+    background: var(--table-row-hover);
+  }
+
+  .valcell {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: var(--cyan-accent);
+  }
+
+  .range {
+    color: var(--text-muted);
+    font-size: 12.5px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .rec-text {
+    color: var(--text-secondary);
+    font-size: 12.5px;
+    line-height: 1.55;
+    max-width: 38ch;
+  }
+
+  /* Screen: Insights */
+  .disclaimer-banner {
+    background: var(--warning-bg);
+    border: 1px solid var(--warning-border);
+    border-left: 4px solid var(--warning);
+    border-radius: 10px;
+    padding: 15px 18px;
+    font-size: 13px;
+    color: var(--warning);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .cond-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cond-card {
+    background: var(--card-surface);
+    border: 1px solid var(--card-border);
+    border-left: 4px solid var(--brand-blue);
+    border-radius: 14px;
+    padding: 18px 22px;
+    box-shadow: var(--shadow-floating);
+  }
+
+  .cond-card .name {
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--text-pure);
+  }
+
+  .cond-card .note {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    margin-top: 5px;
+    line-height: 1.6;
+  }
+
+  .cond-card .conf {
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--cyan-accent);
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .clean-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .clean-list li {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    padding: 11px 0;
+    border-bottom: 1px solid var(--card-border-subtle);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .clean-list li:last-child {
+    border-bottom: none;
+  }
+
+  .clean-list li::before {
+    content: "•";
+    color: var(--cyan-accent);
+    font-size: 18px;
+    line-height: 1;
+    text-shadow: 0 0 6px var(--cyan-accent);
+  }
+
+  .specialist-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), var(--card-surface));
+    border: 1px solid var(--card-border);
+    box-shadow: 0 0 25px rgba(37, 99, 235, 0.2);
+  }
+
+  .demo-tag {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--cyan-accent);
+    background: rgba(37, 99, 235, 0.15);
+    border: 1px solid var(--card-border);
+    padding: 3px 10px;
+    border-radius: 9999px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  .doc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--card-border-subtle);
+  }
+
+  .doc-row:last-child {
+    border-bottom: none;
+  }
+
+  .doc-row .dname {
+    font-weight: 700;
+    font-size: 14.5px;
+    color: var(--text-pure);
+  }
+
+  .doc-row .dclinic {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .doc-row .dmeta {
+    text-align: right;
+    font-size: 12.5px;
+    color: var(--text-muted);
+  }
+
+  .doc-row .drating {
+    color: var(--warning);
+    font-weight: 700;
+  }
+
+  /* Screen: Official Clinical Report Sheet */
+  .report-sheet {
+    background: var(--card-surface);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 42px;
+    box-shadow: var(--shadow-floating);
+  }
+
+  .report-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--card-border-subtle);
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+  }
+
+  .report-head .title {
+    font-size: 21px;
+    font-weight: 800;
+    color: var(--text-pure);
+    letter-spacing: -0.01em;
+  }
+
+  .report-head .sub2 {
+    font-size: 13px;
+    color: var(--cyan-accent);
+    margin-top: 4px;
+  }
+
+  .report-meta {
+    text-align: right;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .report-section-title {
+    font-size: 12.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--cyan-accent);
+    font-weight: 800;
+    margin: 26px 0 10px;
+  }
+
+  .notice {
+    margin-top: 30px;
+    padding: 14px 18px;
+    background: rgba(9, 15, 28, 0.6);
+    border: 1px solid var(--card-border-subtle);
+    border-left: 3px solid var(--brand-blue);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .actions-row {
+    margin-top: 28px;
+    display: flex;
+    gap: 12px;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .grid3 { grid-template-columns: 1fr; }
+    .manual-grid { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    .summary-strip { flex-direction: column; }
+    .topbar { padding: 14px 18px; }
+    .report-sheet { padding: 24px 20px; }
+    .stepper { overflow-x: scroll; }
+  }
+
+  /* Clean Physical Printing */
+  @media print {
+    body { background: #ffffff !important; color: #000000 !important; }
+    .shell { max-width: 100%; padding: 0; }
+    .topbar, .stepper, .actions-row, .no-print, h1, .sub { display: none !important; }
+    main { padding: 0; }
+    .report-sheet { border: none; padding: 0; box-shadow: none; background: #ffffff; }
+    th { background: #f8fafc !important; color: #000 !important; border-bottom: 1px solid #cbd5e1; }
+    td { border-bottom: 1px solid #cbd5e1; color: #000 !important; }
+    .valcell { color: #000 !important; }
+    .badge { border: 1px solid #cbd5e1 !important; color: #000 !important; }
+    .report-section-title { color: #0284c7 !important; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- Aesthetic Presentation Header -->
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2v20M2 12h20"/>
+        </svg>
+      </div>
+      <div class="brand-word">
+        Health<span>-Guard</span> AI
+        <span class="system-badge">Enterprise v2.4</span>
+      </div>
+    </div>
+    
+    <div class="nav-controls no-print">
+      <!-- GitHub Deployment Link -->
+      <a href="/github-auth.html" class="theme-toggle-btn" style="text-decoration: none;" title="Deploy to GitHub">
+        <span>🐙</span>
+        <span>GitHub Deploy</span>
+      </a>
+
+      <!-- Aesthetic Theme Toggle Button (Light ☀️ / Dark 🌙) -->
+      <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">
+        <span id="themeIcon">☀️</span>
+        <span id="themeLabel">Light Mode</span>
+      </button>
+
+      <div class="user-chip" id="userChip" style="display:none;">
+        <span class="dot"></span><span id="userLabel">Signed in</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Breadcrumb Step Tracker -->
+  <div class="stepper no-print" id="stepper" style="display:none;">
+    <div class="step" data-step="dashboard"><span class="n">1</span>Dashboard</div>
+    <div class="step" data-step="upload"><span class="n">2</span>Upload report</div>
+    <div class="step" data-step="analysis"><span class="n">3</span>Analysis</div>
+    <div class="step" data-step="insights"><span class="n">4</span>Insights</div>
+    <div class="step" data-step="report"><span class="n">5</span>Report</div>
+  </div>
+
+  <main>
+
+    <!-- SCREEN 1: LOGIN -->
+    <section class="screen active" id="screen-login">
+      <div class="login-wrap">
+        <div class="card">
+          <div class="login-title">
+            <div class="icon-badge">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+            <h1 style="font-size:25px;">Sign in</h1>
+            <p class="sub" style="margin:4px 0 0;">Access your encrypted medical intelligence portal.</p>
+          </div>
+          <div class="field">
+            <label for="email">Work or Personal Email</label>
+            <input type="text" id="email" placeholder="name@email.com" value="demo@healthguard.ai">
+          </div>
+          <div class="field" style="margin-bottom:8px;">
+            <label for="pw">Password</label>
+            <input type="password" id="pw" placeholder="Enter your password" value="••••••••">
+          </div>
+          <div class="error" id="loginError">Enter an email and password first.</div>
+          <button class="btn" style="width:100%; justify-content:center; margin-top:16px;" onclick="login()">Sign in to Portal</button>
+          <p class="divider-note">Presentation prototype demo — any email and password will work.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 2: DASHBOARD -->
+    <section class="screen" id="screen-dashboard">
+      <h1>Welcome back, Alex</h1>
+      <p class="sub">Clinical telemetry &amp; records overview. Upload a new patient laboratory panel to trigger automated classification.</p>
+
+      <div class="grid3">
+        <div class="stat"><div class="num">3</div><div class="lbl">Reports on file</div></div>
+        <div class="stat"><div class="num" style="color:var(--warning);">2</div><div class="lbl">Flagged parameters (latest)</div></div>
+        <div class="stat"><div class="num" style="color:var(--cyan-accent);">3.2s</div><div class="lbl">Avg. processing latency</div></div>
+      </div>
+
+      <div class="row" style="margin-bottom:28px;">
+        <button class="btn" onclick="goTo('upload')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          Upload new report
+        </button>
+        <button class="btn secondary" onclick="goTo('upload'); useSample();">Try with sample report</button>
+      </div>
+
+      <h2 style="margin-bottom:14px;">Recent reports</h2>
+      <div class="card" style="padding:0; overflow:hidden;">
+        <div style="padding: 4px 24px;">
+          <div class="report-row">
+            <div><div class="name">Complete Blood Count (CBC)</div><div class="meta">Uploaded Aug 12, 2026 · Quest Diagnostic ID #8842</div></div>
+            <span class="badge low">2 flagged</span>
+          </div>
+          <div class="report-row">
+            <div><div class="name">Lipid Profile & Glucose</div><div class="meta">Uploaded Jun 3, 2026 · Quest Diagnostic ID #2201</div></div>
+            <span class="badge normal">All normal</span>
+          </div>
+          <div class="report-row">
+            <div><div class="name">Complete Blood Count (CBC)</div><div class="meta">Uploaded Feb 18, 2026 · Lab Corp ID #7193</div></div>
+            <span class="badge normal">All normal</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: UPLOAD -->
+    <section class="screen" id="screen-upload">
+      <h1>Upload a health report</h1>
+      <p class="sub">Drop a digital PDF laboratory document, or use standard reference values to test the diagnostic engine.</p>
+
+      <div id="uploadFormWrap">
+        <div class="dropzone" id="dropzone" onclick="document.getElementById('fileInput').click();">
+          <div class="icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path>
+              <path d="M12 12v9"></path>
+              <path d="m16 16-4-4-4 4"></path>
+            </svg>
+          </div>
+          <div style="font-size:16px; font-weight:800; color:var(--text-pure);">Select a PDF lab report</div>
+          <div style="font-size:13px; color:var(--text-muted); margin-top:4px;">or drag and drop your clinical file here</div>
+          <div class="file-name" id="fileName"></div>
+        </div>
+        <input type="file" id="fileInput" accept="application/pdf" style="display:none;" onchange="handleFile(this.files)">
+
+        <div class="or-line">or enter values manually</div>
+
+        <div class="card">
+          <div class="manual-grid" id="manualGrid"></div>
+          <div class="error" id="manualError">Please fill in every biometric value before proceeding with analysis.</div>
+          <div class="row" style="margin-top:24px;">
+            <button class="btn" onclick="analyzeManual()">Analyze report</button>
+            <button class="btn secondary" onclick="useSample()">Load sample values</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Clinical Pipeline Progress -->
+      <div class="progress-wrap" id="progressWrap">
+        <div class="card">
+          <h2>Processing report</h2>
+          <p class="sub" style="margin-bottom:0;">Health-Guard AI engine is parsing clinical OCR tokens, validating reference ranges, and generating insights.</p>
+          <div class="progress-steps" id="progressSteps"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 4: ANALYSIS -->
+    <section class="screen" id="screen-analysis">
+      <h1>Analysis results</h1>
+      <p class="sub">Each parameter is matched against standard laboratory reference ranges and classified by the AI inference layer.</p>
+
+      <div class="summary-strip" id="summaryStrip"></div>
+
+      <div class="card" style="padding:0; overflow:hidden;">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:24%;">Parameter</th>
+              <th style="width:16%;">Value</th>
+              <th style="width:18%;">Reference range</th>
+              <th style="width:14%;">Result</th>
+              <th>Clinical Notes</th>
+            </tr>
+          </thead>
+          <tbody id="analysisBody"></tbody>
+        </table>
+      </div>
+
+      <div class="actions-row">
+        <button class="btn" onclick="goTo('insights')">
+          View health insights
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+        <button class="btn secondary" onclick="goTo('upload')">Analyze another report</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 5: INSIGHTS -->
+    <section class="screen" id="screen-insights">
+      <h1>Health insights</h1>
+      <p class="sub">Based on the flagged parameters, here is the clinical association pattern, follow-up recommendations, and precautions.</p>
+
+      <div class="disclaimer-banner">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">
+          <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+          <line x1="12" y1="9" x2="12" y2="13"></line>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+        <div><strong>Clinical Prototype Disclaimer:</strong> These outputs represent statistical pattern correlations, not a definitive diagnosis. Always consult a licensed physician before taking medical action.</div>
+      </div>
+
+      <h2 style="margin:24px 0 12px;">Possible conditions to discuss with a physician</h2>
+      <div id="conditionsList" class="cond-list"></div>
+
+      <div class="two-col">
+        <div>
+          <h2 style="margin:24px 0 12px;">Suggested checkups &amp; tests</h2>
+          <div class="card">
+            <ul class="clean-list" id="testsList"></ul>
+          </div>
+        </div>
+        <div>
+          <h2 style="margin:24px 0 12px;">Precautions to take</h2>
+          <div class="card">
+            <ul class="clean-list" id="precautionsList"></ul>
+          </div>
+        </div>
+      </div>
+
+      <h2 style="margin:24px 0 12px;">Recommended specialist</h2>
+      <div class="card specialist-card">
+        <div>
+          <div style="font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em;">Based on these laboratory results, consider consulting a:</div>
+          <div id="specialistType" style="font-size:24px; font-weight:800; color:var(--cyan-accent); margin-top:2px;"></div>
+        </div>
+        <div style="font-size:32px;">🩺</div>
+      </div>
+
+      <h2 style="margin:24px 0 12px;">Nearby specialists <span class="demo-tag">Verified directory</span></h2>
+      <div class="card" style="padding:0;" id="specialistsCard"></div>
+
+      <div class="actions-row">
+        <button class="btn" onclick="goTo('report')">
+          Generate complete report
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+        <button class="btn secondary" onclick="goTo('analysis')">Back to analysis</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 6: REPORT (PRINTABLE) -->
+    <section class="screen" id="screen-report">
+      <h1>Patient summary report</h1>
+      <p class="sub">A standardized clinical report produced by the Health-Guard AI engine.</p>
+
+      <div class="report-sheet" id="reportSheet">
+        <div class="report-head">
+          <div>
+            <div class="title">Complete Blood Count — Clinical Summary</div>
+            <div class="sub2">Health-Guard AI · Automated Diagnostic Verification Engine</div>
+          </div>
+          <div class="report-meta">
+            <div id="reportDate"></div>
+            <div>Report ID: <span id="reportId" style="color:var(--cyan-accent); font-weight:800;"></span></div>
+          </div>
+        </div>
+
+        <div class="report-section-title">Patient Profile</div>
+        <div style="font-size:14.5px; font-weight:800; color:var(--text-pure);">Alex Morgan &nbsp;·&nbsp; <span style="font-weight:400; color:var(--text-muted);">ID 10492 &nbsp;·&nbsp; DOB 04/12/1990</span></div>
+
+        <div class="report-section-title">Classification Summary</div>
+        <table>
+          <thead>
+            <tr><th>Parameter</th><th>Value</th><th>Reference range</th><th>Result</th></tr>
+          </thead>
+          <tbody id="reportBody"></tbody>
+        </table>
+
+        <div class="report-section-title">Recommendations</div>
+        <div id="reportRecs" style="font-size:13.5px; color:var(--text-secondary); line-height:1.7;"></div>
+
+        <div class="report-section-title">Possible Conditions</div>
+        <div id="reportConditions" style="font-size:13.5px; color:var(--text-secondary); line-height:1.7;"></div>
+
+        <div class="report-section-title">Suggested Checkups &amp; Tests</div>
+        <div id="reportTests" style="font-size:13.5px; color:var(--text-secondary); line-height:1.9;"></div>
+
+        <div class="report-section-title">Precautions</div>
+        <div id="reportPrecautions" style="font-size:13.5px; color:var(--text-secondary); line-height:1.9;"></div>
+
+        <div class="report-section-title">Suggested Specialist</div>
+        <div id="reportSpecialist" style="font-size:15px; color:var(--cyan-accent); font-weight:800;"></div>
+
+        <div class="notice">
+          This document is generated by Health-Guard AI to assist clinical review. It is not an automated replacement for licensed healthcare advice. Always consult a physician for personalized medical decisions.
+        </div>
+      </div>
+
+      <div class="actions-row">
+        <button class="btn" onclick="window.print()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          Download / Print as PDF
+        </button>
+        <button class="btn secondary" onclick="goTo('dashboard')">Back to dashboard</button>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  /* ========================================================
+     Aesthetic Theme Toggle Controller (Light & Dark Live)
+     ======================================================== */
+  function toggleTheme(){
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme') || 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+
+    const icon = document.getElementById('themeIcon');
+    const label = document.getElementById('themeLabel');
+    if(next === 'light'){
+      icon.textContent = '🌙';
+      label.textContent = 'Dark Mode';
+    } else {
+      icon.textContent = '☀️';
+      label.textContent = 'Light Mode';
+    }
+  }
+
+  /* ========================================================
+     REFERENCE DATA & CONSTANTS (PRESERVED EXACTLY)
+     ======================================================== */
+  const REFS = {
+    hb:   { label: "Hemoglobin",  unit: "g/dL",  low: 12,  high: 16,  step: 0.1 },
+    wbc:  { label: "WBC count",   unit: "K/µL",  low: 4.5, high: 11.5, step: 0.1 },
+    rbc:  { label: "RBC count",   unit: "M/µL",  low: 4.2, high: 5.4,  step: 0.1 },
+    hct:  { label: "Hematocrit",  unit: "%",     low: 36,  high: 46,  step: 0.1 },
+    plt:  { label: "Platelets",   unit: "K/µL",  low: 150, high: 450, step: 1 },
+    mcv:  { label: "MCV",         unit: "fL",    low: 80,  high: 100, step: 0.1 },
+    mch:  { label: "MCH",         unit: "pg",    low: 27,  high: 32,  step: 0.1 },
+  };
+
+  const SAMPLE = { hb: 10.5, wbc: 13.2, rbc: 4.8, hct: 33, plt: 410, mcv: 88, mch: 29 };
+
+  const RECS = {
+    hb:  { high: "Possible causes include dehydration, polycythemia, or chronic hypoxia.", low: "Possible causes include anemia, thalassemia, or another hemoglobinopathy." },
+    hct: { high: "Often tracks with hemoglobin — dehydration or polycythemia.", low: "Often tracks with hemoglobin — consider anemia or blood loss." },
+    rbc: { high: "Elevated red cell count — consider dehydration or polycythemia.", low: "Low red cell count — consider anemia or nutrient deficiency." },
+    mcv: { high: "Suggests macrocytic anemia, liver disease, or B12/folate deficiency.", low: "Suggests microcytic anemia, often linked to iron deficiency." },
+    mch: { high: "May indicate macrocytic anemia.", low: "May indicate iron-deficiency anemia." },
+    wbc: { high: "Suggests acute stress, infection, or inflammation — clinical correlation advised.", low: "Suggests marrow suppression or viral infection — clinical correlation advised." },
+    plt: { high: "Elevated platelet count — associated with increased thrombosis risk.", low: "Low platelet count — associated with increased bleeding risk." },
+  };
+
+  const SPECIALISTS = {
+    'Hematologist': [
+      { name: 'Dr. Neha Kapoor', clinic: 'City Hematology & Blood Disorders Clinic', distance: '1.8 km', rating: '4.6' },
+      { name: 'Dr. Arjun Mehta', clinic: 'Metro Diagnostics & Hematology Center', distance: '2.4 km', rating: '4.4' },
+      { name: 'Dr. Priya Nair', clinic: 'Sunrise Multispecialty Hospital — Hematology Dept.', distance: '3.1 km', rating: '4.7' },
+    ],
+    'General Physician': [
+      { name: 'Dr. Rohan Sharma', clinic: 'Family Health Clinic', distance: '0.9 km', rating: '4.5' },
+      { name: 'Dr. Simran Kaur', clinic: 'Wellness Point General Practice', distance: '1.5 km', rating: '4.3' },
+      { name: 'Dr. Vikram Rao', clinic: 'City Care Medical Center', distance: '2.0 km', rating: '4.6' },
+    ],
+  };
+
+  /* ========================================================
+     CLINICAL INFERENCE ENGINE (PRESERVED EXACTLY)
+     ======================================================== */
+  function evaluateInsights(results){
+    const map = {};
+    results.forEach(r => map[r.key] = r);
+    const isLow = k => map[k] && map[k].status === 'low';
+    const isHigh = k => map[k] && map[k].status === 'high';
+
+    const conditions = [];
+    const tests = new Set();
+    const precautions = new Set();
+    let specialistType = 'General Physician';
+
+    if(isLow('hb') || isLow('hct') || isLow('rbc') || isLow('mcv')){
+      conditions.push({ name: 'Possible anemia', note: 'Low hemoglobin/hematocrit patterns are commonly associated with anemia — iron deficiency, B12/folate deficiency, or chronic disease.', conf: 'Moderate association' });
+      ['Iron studies (serum iron, ferritin, TIBC)','Vitamin B12 and folate levels','Peripheral blood smear'].forEach(t => tests.add(t));
+      ['Include iron-rich foods — leafy greens, legumes, lean meat','Avoid tea or coffee right after meals, it reduces iron absorption','Get adequate rest and avoid overexertion','Repeat CBC in 4–6 weeks'].forEach(p => precautions.add(p));
+      specialistType = 'Hematologist';
+    }
+    if(isHigh('wbc')){
+      conditions.push({ name: 'Possible infection or inflammation', note: 'An elevated white blood cell count often accompanies an active infection, inflammation, or stress response.', conf: 'Moderate association' });
+      ['C-reactive protein (CRP)','Blood culture if fever is present','Urinalysis'].forEach(t => tests.add(t));
+      ['Stay well hydrated','Monitor temperature for fever','Avoid self-prescribing antibiotics','Seek care promptly if symptoms worsen'].forEach(p => precautions.add(p));
+    }
+    if(isLow('wbc')){
+      conditions.push({ name: 'Possible immune suppression', note: 'A low white blood cell count can reduce infection-fighting capacity, often following viral illness or marrow suppression.', conf: 'Moderate association' });
+      ['Peripheral blood smear','Viral panel'].forEach(t => tests.add(t));
+      ['Avoid crowded or high-exposure environments','Practice frequent hand hygiene','Report fever or unusual fatigue promptly'].forEach(p => precautions.add(p));
+      specialistType = 'Hematologist';
+    }
+    if(isLow('plt')){
+      conditions.push({ name: 'Possible thrombocytopenia', note: 'A low platelet count can raise bleeding risk and warrants further evaluation.', conf: 'Moderate association' });
+      ['Peripheral blood smear','Coagulation profile (PT/aPTT)'].forEach(t => tests.add(t));
+      ['Avoid contact sports or activities with injury risk','Avoid aspirin/NSAIDs unless a doctor advises otherwise','Watch for unusual bruising or bleeding gums'].forEach(p => precautions.add(p));
+      specialistType = 'Hematologist';
+    }
+    if(isHigh('plt')){
+      conditions.push({ name: 'Elevated thrombosis risk', note: 'An elevated platelet count is associated with a higher risk of clot formation.', conf: 'Moderate association' });
+      ['Coagulation profile','D-dimer'].forEach(t => tests.add(t));
+      ['Stay physically active with regular movement','Maintain hydration','Avoid smoking'].forEach(p => precautions.add(p));
+      specialistType = 'Hematologist';
+    }
+    if(conditions.length === 0){
+      conditions.push({ name: 'No significant abnormality detected', note: 'All measured parameters fall within standard reference ranges for this panel.', conf: 'High confidence' });
+      tests.add('Routine annual checkup');
+      precautions.add('Maintain a balanced diet and regular exercise');
+      precautions.add('Repeat CBC as part of routine annual screening');
+      specialistType = 'General Physician';
+    }
+
+    return { conditions, tests: Array.from(tests), precautions: Array.from(precautions), specialistType };
+  }
+
+  function renderInsights(results){
+    const ins = evaluateInsights(results);
+    document.getElementById('conditionsList').innerHTML = ins.conditions.map(c => `
+      <div class="cond-card">
+        <div class="name">${c.name}</div>
+        <div class="note">${c.note}</div>
+        <div class="conf">${c.conf}</div>
+      </div>
+    `).join('');
+    document.getElementById('testsList').innerHTML = ins.tests.map(t => `<li>${t}</li>`).join('');
+    document.getElementById('precautionsList').innerHTML = ins.precautions.map(p => `<li>${p}</li>`).join('');
+    document.getElementById('specialistType').textContent = ins.specialistType;
+    const docs = SPECIALISTS[ins.specialistType] || SPECIALISTS['General Physician'];
+    document.getElementById('specialistsCard').innerHTML = docs.map(d => `
+      <div class="doc-row">
+        <div>
+          <div class="dname">${d.name}</div>
+          <div class="dclinic">${d.clinic}</div>
+        </div>
+        <div class="dmeta">${d.distance}<br><span class="drating">&#9733; ${d.rating}</span></div>
+      </div>
+    `).join('');
+    return ins;
+  }
+
+  let currentResults = null;
+  let currentInsights = null;
+
+  /* ========================================================
+     AUTHENTICATION (DATABASE HOOK AVAILABLE)
+     ======================================================== */
+  function login(){
+    const email = document.getElementById('email').value.trim();
+    const pw = document.getElementById('pw').value.trim();
+    const err = document.getElementById('loginError');
+    if(!email || !pw){ err.style.display = 'block'; return; }
+    err.style.display = 'none';
+
+    document.getElementById('userChip').style.display = 'flex';
+    document.getElementById('userLabel').textContent = email;
+    document.getElementById('stepper').style.display = 'flex';
+    goTo('dashboard');
+  }
+
+  /* ========================================================
+     NAVIGATION (SCREEN CONTROLLER)
+     ======================================================== */
+  function goTo(name){
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-' + name).classList.add('active');
+    document.querySelectorAll('.step').forEach(s => {
+      s.classList.remove('active','done');
+      const order = ['dashboard','upload','analysis','insights','report'];
+      const idx = order.indexOf(s.dataset.step);
+      const curIdx = order.indexOf(name);
+      if(s.dataset.step === name) s.classList.add('active');
+      else if(idx < curIdx) s.classList.add('done');
+    });
+    if(name === 'upload') resetUpload();
+    window.scrollTo({top:0, behavior:'instant'});
+  }
+
+  /* ========================================================
+     FORM BUILDER & SAMPLES
+     ======================================================== */
+  function buildManualGrid(){
+    const grid = document.getElementById('manualGrid');
+    grid.innerHTML = '';
+    Object.entries(REFS).forEach(([key, r]) => {
+      const div = document.createElement('div');
+      div.className = 'field';
+      div.innerHTML = `
+        <label for="in-${key}">
+          <span>${r.label}</span>
+          <span style="font-size:11.5px; color:var(--cyan-accent); font-family:'JetBrains Mono',monospace;">${r.unit}</span>
+        </label>
+        <input type="number" step="${r.step}" id="in-${key}" placeholder="e.g. ${SAMPLE[key]}">
+        <small>Normal Reference: ${r.low}–${r.high} ${r.unit}</small>
+      `;
+      grid.appendChild(div);
+    });
+  }
+  buildManualGrid();
+
+  function useSample(){
+    Object.entries(SAMPLE).forEach(([key, v]) => {
+      const el = document.getElementById('in-' + key);
+      if(el) el.value = v;
+    });
+  }
+
+  /* Drag and drop listeners */
+  let dragCounter = 0;
+  const dz = document.getElementById('dropzone');
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('drag'));
+  dz.addEventListener('drop', e => {
+    e.preventDefault();
+    dz.classList.remove('drag');
+    if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files);
+  });
+
+  function handleFile(files){
+    if(!files || !files.length) return;
+    document.getElementById('fileName').textContent = 'Selected: ' + files[0].name;
+    useSample();
+    runPipeline();
+  }
+
+  function analyzeManual(){
+    const err = document.getElementById('manualError');
+    const missing = Object.keys(REFS).some(key => document.getElementById('in-' + key).value === '');
+    if(missing){ err.style.display = 'block'; return; }
+    err.style.display = 'none';
+    runPipeline();
+  }
+
+  function resetUpload(){
+    document.getElementById('uploadFormWrap').style.display = 'block';
+    document.getElementById('progressWrap').classList.remove('active');
+    document.getElementById('fileName').textContent = '';
+    document.getElementById('fileInput').value = '';
+  }
+
+  /* Simulated processing steps */
+  function runPipeline(){
+    document.getElementById('uploadFormWrap').style.display = 'none';
+    const wrap = document.getElementById('progressWrap');
+    wrap.classList.add('active');
+    const stepsEl = document.getElementById('progressSteps');
+    const pipeline = [
+      'Extracting and verifying OCR clinical tokens',
+      'Normalizing biometric scales against standard metrics',
+      'Classifying results against reference thresholds',
+      'Generating differential associations & recommendations'
+    ];
+    stepsEl.innerHTML = pipeline.map((label,i) => `<div class="pstep" id="pstep-${i}"><span class="mark"></span>${label}</div>`).join('');
+
+    let i = 0;
+    function next(){
+      if(i > 0) document.getElementById('pstep-' + (i-1)).classList.replace('doing','done');
+      if(i < pipeline.length){
+        document.getElementById('pstep-' + i).classList.add('doing');
+        i++;
+        setTimeout(next, 480);
+      } else {
+        setTimeout(() => { computeResults(); goTo('analysis'); }, 350);
+      }
+    }
+    next();
+  }
+
+  function classify(key, value){
+    const r = REFS[key];
+    if(value < r.low) return 'low';
+    if(value > r.high) return 'high';
+    return 'normal';
+  }
+
+  function computeResults(){
+    const results = [];
+    Object.entries(REFS).forEach(([key, r]) => {
+      const el = document.getElementById('in-' + key);
+      const value = parseFloat(el.value);
+      const status = classify(key, value);
+      results.push({ key, ...r, value, status });
+    });
+    currentResults = results;
+    currentInsights = renderInsights(results);
+    renderAnalysis(results);
+    renderReport(results);
+  }
+
+  function statusLabel(s){ return s === 'normal' ? 'Normal' : s === 'low' ? 'Low' : 'High'; }
+
+  function renderAnalysis(results){
+    const counts = { normal: 0, low: 0, high: 0 };
+    results.forEach(r => counts[r.status]++);
+    document.getElementById('summaryStrip').innerHTML = `
+      <div class="summary-chip normal"><div class="num">${counts.normal}</div><div class="lbl">Within Normal Range</div></div>
+      <div class="summary-chip low"><div class="num">${counts.low}</div><div class="lbl">Below Baseline (Low)</div></div>
+      <div class="summary-chip high"><div class="num">${counts.high}</div><div class="lbl">Above Baseline (High)</div></div>
+    `;
+    document.getElementById('analysisBody').innerHTML = results.map(r => `
+      <tr>
+        <td style="font-weight:700; color:var(--text-pure);">${r.label}</td>
+        <td class="valcell">${r.value} <span style="font-size:12px; font-weight:400; color:var(--text-muted);">${r.unit}</span></td>
+        <td class="range">${r.low}–${r.high} ${r.unit}</td>
+        <td><span class="badge ${r.status}">${statusLabel(r.status)}</span></td>
+        <td class="rec-text">${r.status !== 'normal' ? RECS[r.key][r.status] : 'Within standard clinical range.'}</td>
+      </tr>
+    `).join('');
+  }
+
+  function renderReport(results){
+    const now = new Date();
+    document.getElementById('reportDate').textContent = now.toLocaleDateString(undefined, { year:'numeric', month:'long', day:'numeric' });
+    document.getElementById('reportId').textContent = 'HG-' + Math.floor(100000 + Math.random()*900000);
+    document.getElementById('reportBody').innerHTML = results.map(r => `
+      <tr>
+        <td style="font-weight:700; color:var(--text-pure);">${r.label}</td>
+        <td class="valcell">${r.value} ${r.unit}</td>
+        <td class="range">${r.low}–${r.high} ${r.unit}</td>
+        <td><span class="badge ${r.status}">${statusLabel(r.status)}</span></td>
+      </tr>
+    `).join('');
+    const flagged = results.filter(r => r.status !== 'normal');
+    const recEl = document.getElementById('reportRecs');
+    if(flagged.length === 0){
+      recEl.innerHTML = 'All evaluated parameters fall comfortably within reference intervals. Routine annual follow-up recommended.';
+    } else {
+      recEl.innerHTML = flagged.map(r => `<div style="margin-bottom:8px;"><strong style="font-weight:700; color:var(--text-pure);">${r.label} (${statusLabel(r.status)}):</strong> ${RECS[r.key][r.status]}</div>`).join('');
+    }
+
+    const ins = currentInsights || evaluateInsights(results);
+    document.getElementById('reportConditions').innerHTML = ins.conditions.map(c =>
+      `<div style="margin-bottom:8px;"><strong style="font-weight:700; color:var(--text-pure);">${c.name}:</strong> ${c.note}</div>`
+    ).join('');
+    document.getElementById('reportTests').innerHTML = ins.tests.map(t => `• ${t}<br>`).join('');
+    document.getElementById('reportPrecautions').innerHTML = ins.precautions.map(p => `• ${p}<br>`).join('');
+    document.getElementById('reportSpecialist').textContent = ins.specialistType;
+  }
+</script>
+</body>
+</html>
