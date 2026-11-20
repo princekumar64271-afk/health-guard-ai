@@ -6,6 +6,7 @@ import sys
 import json
 import urllib.parse
 from github_uploader import upload_all_project_files
+from vercel_deployer import deploy_to_vercel
 
 # Force UTF-8 on Windows console if available
 if hasattr(sys.stdout, 'reconfigure'):
@@ -45,9 +46,32 @@ class CustomHTTPHandler(http.server.SimpleHTTPRequestHandler):
                     self.wfile.write(json.dumps({'success': False, 'error': 'Missing GitHub Token'}).encode('utf-8'))
                     return
 
-                # Run upload using our github_uploader
                 result = upload_all_project_files(token, repo_name=repo_name)
+                self.send_response(200 if result.get('success') else 400)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps(result).encode('utf-8'))
+            except Exception as e:
+                self.send_response(500)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({'success': False, 'error': str(e)}).encode('utf-8'))
+
+        elif self.path == '/api/vercel-deploy':
+            try:
+                content_length = int(self.headers.get('Content-Length', 0))
+                post_data = self.rfile.read(content_length)
+                payload = json.loads(post_data.decode('utf-8'))
                 
+                token = payload.get('token', '').strip()
+                if not token:
+                    self.send_response(400)
+                    self.send_header('Content-Type', 'application/json')
+                    self.end_headers()
+                    self.wfile.write(json.dumps({'success': False, 'error': 'Missing Vercel Token'}).encode('utf-8'))
+                    return
+
+                result = deploy_to_vercel(token, project_name="health-guard-ai")
                 self.send_response(200 if result.get('success') else 400)
                 self.send_header('Content-Type', 'application/json')
                 self.end_headers()
@@ -63,9 +87,9 @@ class CustomHTTPHandler(http.server.SimpleHTTPRequestHandler):
 if __name__ == "__main__":
     url = f"http://localhost:{PORT}"
     print("=" * 60)
-    print(" [Health-Guard AI] Localhost Server + GitHub Deployer")
+    print(" [Health-Guard AI] Localhost Server + Deployer")
     print(f" Main Platform:   {url}")
-    print(f" GitHub Deployer: {url}/github-auth.html")
+    print(f" Vercel Deployer: {url}/vercel-auth.html")
     print(f" Serving Folder:  {DIRECTORY}")
     print(" Press Ctrl+C to stop the server")
     print("=" * 60)
