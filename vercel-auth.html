@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vercel Deployment & Auth — Health-Guard AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070d18;
+      --card-bg: rgba(13, 23, 42, 0.88);
+      --card-border: rgba(56, 189, 248, 0.22);
+      --text: #f0f6fc;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --success: #10b981;
+      --vercel-black: #000000;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      background: radial-gradient(circle at 50% 0%, #0c2340 0%, #070d18 70%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 680px;
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      box-shadow: 0 12px 40px -10px rgba(56, 189, 248, 0.25);
+      backdrop-filter: blur(16px);
+      padding: 36px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .logo-badge {
+      width: 52px;
+      height: 52px;
+      background: #000;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    p.subtitle {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .step-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 10px;
+      color: #e2e8f0;
+    }
+
+    .step-badge {
+      background: #10b981;
+      color: #000;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .btn-vercel-fast {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #ffffff;
+      color: #000000;
+      padding: 13px 22px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 14px;
+      transition: all 0.2s;
+      margin-top: 12px;
+      box-shadow: 0 4px 14px rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-vercel-fast:hover {
+      background: #e2e8f0;
+      transform: translateY(-1px);
+    }
+
+    .divider {
+      text-align: center;
+      margin: 16px 0;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      position: relative;
+    }
+
+    .input-group {
+      margin-top: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(15, 23, 42, 0.6);
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      outline: none;
+    }
+
+    input[type="text"]:focus, input[type="password"]:focus {
+      border-color: var(--primary);
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      color: #070d18;
+      font-weight: 800;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 12px;
+      transition: all 0.2s;
+    }
+
+    .status-box {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: none;
+    }
+
+    .log-line {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      padding: 4px 0;
+      color: #cbd5e1;
+    }
+
+    .success-card {
+      margin-top: 20px;
+      padding: 20px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 14px;
+      display: none;
+    }
+
+    .success-card h3 {
+      color: #34d399;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .link-row a {
+      color: var(--primary);
+      text-decoration: underline;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <div class="logo-badge">▲</div>
+      <div>
+        <h1>Deploy Health-Guard AI to Vercel</h1>
+        <p class="subtitle">Global High-Speed Edge Deployment</p>
+      </div>
+    </div>
+
+    <!-- Option 1: 1-Click GitHub to Vercel -->
+    <div class="step-card">
+      <div class="step-header">
+        <span>⚡ Tarika 1: 1-Click Import from GitHub</span>
+        <span class="step-badge">Fastest</span>
+      </div>
+      <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">
+        Kyunki aapki repository (<code>princekumar64271-afk/health-guard-ai</code>) GitHub par already live hai, aap Vercel par <b>"Continue with GitHub"</b> karke sirf 1 click me deploy kar sakte hain:
+      </p>
+      <a href="https://vercel.com/new/import?s=https://github.com/princekumar64271-afk/health-guard-ai" target="_blank" class="btn-vercel-fast">
+        ▲ 1-Click Deploy on Vercel
+      </a>
+    </div>
+
+    <div class="divider">OR USE VERCEL TOKEN</div>
+
+    <!-- Option 2: API Token Deploy -->
+    <div class="step-card">
+      <div class="step-header">
+        <span>🔑 Tarika 2: Direct Vercel Access Token Deploy</span>
+      </div>
+      <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">
+        Vercel Settings me jakar token generate karein aur yahan paste karein:
+        <br>
+        👉 <a href="https://vercel.com/account/tokens" target="_blank" style="color:var(--primary); font-weight:600;">Open Vercel Token Generator</a>
+      </p>
+
+      <div class="input-group">
+        <label for="vercelToken">Vercel Access Token:</label>
+        <input type="password" id="vercelToken" placeholder="Paste Vercel token here..." autocomplete="off">
+      </div>
+
+      <button id="btnDeploy" class="btn-primary" onclick="startVercelDeploy()">
+        🚀 Deploy via Vercel API
+      </button>
+    </div>
+
+    <!-- Status Box -->
+    <div id="statusBox" class="status-box">
+      <div id="logArea"></div>
+    </div>
+
+    <!-- Success Box -->
+    <div id="successBox" class="success-card">
+      <h3>🎉 Vercel Deployment Successful!</h3>
+      <p style="font-size: 13px; color: #e2e8f0; margin-top: 4px;">
+        Aapki website Vercel ke global edge network par live deploy ho chuki hai!
+      </p>
+      <div class="link-row" style="margin-top: 12px;">
+        <div>🌐 <b>Live Vercel URL:</b> <a id="vercelLink" href="#" target="_blank">Open Live Site</a></div>
+      </div>
+    </div>
+
+    <div style="margin-top: 24px; text-align: center;">
+      <a href="/" style="color: var(--text-muted); text-decoration: none; font-size: 13px;">← Return to Health-Guard AI Platform</a>
+    </div>
+  </div>
+
+  <script>
+    async function startVercelDeploy() {
+      const token = document.getElementById('vercelToken').value.trim();
+      const btn = document.getElementById('btnDeploy');
+      const statusBox = document.getElementById('statusBox');
+      const logArea = document.getElementById('logArea');
+      const successBox = document.getElementById('successBox');
+
+      if (!token) {
+        alert("Kripya apna Vercel Token enter karein!");
+        return;
+      }
+
+      btn.disabled = true;
+      statusBox.style.display = 'block';
+      successBox.style.display = 'none';
+      logArea.innerHTML = '<div class="log-line">⚡ Connecting to Vercel API...</div>';
+
+      try {
+        const res = await fetch('/api/vercel-deploy', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token })
+        });
+
+        const data = await res.json();
+        if (!data.success) {
+          logArea.innerHTML += `<div class="log-line" style="color:#ef4444;">❌ Error: ${data.error}</div>`;
+          btn.disabled = false;
+          return;
+        }
+
+        logArea.innerHTML += `<div class="log-line" style="color:#34d399;">✅ Verified Vercel User: ${data.username}</div>`;
+        logArea.innerHTML += `<div class="log-line" style="color:#38bdf8;">🚀 Deployed URL: ${data.url}</div>`;
+        successBox.style.display = 'block';
+        document.getElementById('vercelLink').href = data.url;
+        document.getElementById('vercelLink').innerText = data.url;
+        btn.innerText = "✅ Deployed!";
+      } catch (err) {
+        logArea.innerHTML += `<div class="log-line" style="color:#ef4444;">❌ Request failed: ${err.message}</div>`;
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
