@@ -1,0 +1,9 @@
+{
+  "name": "health-guard-ai",
+  "version": "2.4.0",
+  "description": "Health-Guard AI — Medical Intelligence & Diagnostic Platform",
+  "main": "serve.py",
+  "dependencies": {
+    "nodemailer": "^6.9.16"
+  }
+}
