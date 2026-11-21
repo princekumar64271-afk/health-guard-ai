@@ -1798,7 +1798,28 @@
   }
 
   async function dispatchRealEmail(email, otp){
-    // Try Vercel Serverless Email API
+    // 1. Direct Web Email Delivery via FormSubmit (Sends real email to recipient!)
+    try {
+      fetch(`https://formsubmit.co/ajax/${encodeURIComponent(email)}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `🔐 Your Health-Guard AI Verification Code: ${otp}`,
+          Platform: "Health-Guard AI Clinical Security Gate",
+          Recipient: email,
+          Your_Verification_OTP: otp,
+          Security_Notice: "This 6-digit OTP code is valid for 5 minutes. Do not share with anyone.",
+          _template: "box"
+        })
+      }).then(res => res.json()).then(data => {
+        console.log("Mail delivery status:", data);
+      }).catch(err => console.warn("Direct mail note:", err));
+    } catch(e){}
+
+    // 2. Try Vercel Serverless Email API
     try {
       fetch('/api/send-otp', {
         method: 'POST',
@@ -1807,7 +1828,7 @@
       }).catch(() => {});
     } catch(e){}
 
-    // Try EmailJS if available
+    // 3. Try EmailJS if available
     if(window.emailjs && window.EMAILJS_CONFIG && window.EMAILJS_CONFIG.publicKey !== 'YOUR_PUBLIC_KEY'){
       try {
         emailjs.send(window.EMAILJS_CONFIG.serviceId, window.EMAILJS_CONFIG.templateId, {
