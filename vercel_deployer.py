@@ -29,14 +29,14 @@ def deploy_to_vercel(token, project_name="health-guard-ai"):
     base_dir = r"C:\Users\ASUS\Desktop\health-guard-ai"
     files_payload = []
     
-    file_list = ["index.html", "README.md"]
+    file_list = ["index.html", "README.md", "api/send-otp.js"]
     for fname in file_list:
         fpath = os.path.join(base_dir, fname)
         if os.path.exists(fpath):
             with open(fpath, "rb") as f:
                 b64 = base64.b64encode(f.read()).decode('utf-8')
                 files_payload.append({
-                    "file": fname,
+                    "file": fname.replace("\\", "/"),
                     "data": b64,
                     "encoding": "base64"
                 })
